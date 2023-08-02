@@ -1,21 +1,21 @@
 ﻿@model ML.Producto
 
-    <div class="container">
-        <div class="text-center">
-            <h1>Formulario de Productos</h1>
-            <h5>Ingrese la información del producto a registrar</h5>
-        </div>
-        <hr />
+<div class="container">
+    <div class="text-center">
+        <h1>Formulario de Productos</h1>
+        <h5>Ingrese la información del producto a registrar</h5>
+    </div>
+    <hr />
 
 
     @using (Html.BeginForm("Form", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="row">
-            @Html.TextBoxFor(model => model.IdProducto, new { @class = "form-control", @style="display: none"})
+            @Html.TextBoxFor(model => model.IdProducto, new { @class = "form-control", @style = "display: none" })
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Nombre)
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-basket-fill"></i></span>
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-basket-fill" style="color: #0056d6;"></i></span>
                     @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Ejemplo: Papitas" })
                 </div>
                 @Html.ValidationMessageFor(model => model.Nombre)
@@ -23,12 +23,24 @@
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Precio)
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-basket-fill"></i></span>
-                    @Html.TextBoxFor(model => model.Precio, new { @class = "form-control", @placeholder = "Ejemplo: Papitas" })
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-money-bill-wave" style="color: #0056d6;"></i></span>
+                    @Html.TextBoxFor(model => model.Precio, new { @class = "form-control", @placeholder = "$MXN" })
                 </div>
                 @Html.ValidationMessageFor(model => model.Precio)
             </div>
+            <div class="col-md-3">
+                @Html.Label("Departamento")
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-store" style="color: #0056d6;"></i></span>
+                    @Html.DropDownListFor(model => model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona una opción", new { @class = "form-control"})
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-success">Agregar</button>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-success">Agregar</button>
+            @Html.ActionLink("Regresar", "GetAll", "Producto", htmlAttributes: new { @class = "btn btn-danger" })
+        </div>
+
+
     }
-    </div>
+</div>

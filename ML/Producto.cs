@@ -8,6 +8,7 @@ namespace ML
         public string Nombre { get; set; }
         public decimal Precio { get; set; }
         public List<object> Productos { get; set; }
+        public ML.Departamento Departamento { get; set; }
     }
 }
 

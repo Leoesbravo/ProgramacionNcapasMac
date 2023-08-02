@@ -15,6 +15,7 @@
             <td class="text-center">Editar</td>
             <td class="text-center">Nombre</td>
             <td class="text-center">Precio</td>
+            <td class="text-center">Departamento</td>
             <td class="text-center">Eliminar</td>
         </tr>
     </thead>
@@ -22,10 +23,11 @@
         @foreach (ML.Producto producto in Model.Productos)
         {
             <tr>
-                <td class="text-center"><a class="btn btn-warning" href="@Url.Action("Form","Producto", new {idProducto = producto.IdProducto })"><i class="bi bi-arrow-right-square-fill "></i></a></td>
+                <td class="text-center"><a class="btn btn-warning" href="@Url.Action("Form","Producto", new {idProducto = producto.IdProducto })"><i class="fa-solid fa-square-pen"></i></a></td>
                 <td>@producto.Nombre</td>
                 <td>$ @producto.Precio</td>
-                <td class="text-center"><a class="btn btn-danger" href="@Url.Action("Delete","Producto", new {idProducto = producto.IdProducto })"><i class="bi bi-arrow-right-square-fill "></i></a></td>
+                <td>@producto.Departamento.IdDepartamento</td>
+                <td class="text-center"><a class="btn btn-danger" href="@Url.Action("Delete","Producto", new {idProducto = producto.IdProducto })"><i class="bi bi-trash2-fill"></i></a></td>
             </tr>
 
         }

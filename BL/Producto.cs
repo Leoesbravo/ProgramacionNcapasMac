@@ -16,7 +16,7 @@ namespace BL
                 using (SQLiteConnection context = new SQLiteConnection(DL.Conexion.GetConnection()))
                 {
 
-                    SQLiteCommand command = new SQLiteCommand("SELECT IdProducto, Nombre, Precio FROM Producto");
+                    SQLiteCommand command = new SQLiteCommand("SELECT IdProducto, Nombre, Precio, IdDepartamento FROM Producto");
                     command.Connection = context;
 
                     DataTable tableProducto = new DataTable();
@@ -33,6 +33,9 @@ namespace BL
                             producto.IdProducto = int.Parse(row[0].ToString());
                             producto.Nombre = row[1].ToString();
                             producto.Precio = decimal.Parse(row[2].ToString());
+
+                            producto.Departamento = new ML.Departamento();
+                            producto.Departamento.IdDepartamento = int.Parse(row[3].ToString());
 
                             result.Objects.Add(producto);
                         }
@@ -60,14 +63,16 @@ namespace BL
             {
                 using (SQLiteConnection context = new SQLiteConnection(DL.Conexion.GetConnection()))
                 {
-                    SQLiteCommand cmd = new SQLiteCommand("INSERT INTO Producto (Nombre, Precio) VALUES(@Nombre, @Precio)");
+                    SQLiteCommand cmd = new SQLiteCommand("INSERT INTO Producto (Nombre, Precio, IdDepartamento) VALUES(@Nombre, @Precio, @IdDepartamento)");
 
-                    SQLiteParameter[] collection = new SQLiteParameter[2];
+                    SQLiteParameter[] collection = new SQLiteParameter[3];
 
                     collection[0] = new SQLiteParameter("Nombre", DbType.String);
                     collection[0].Value = producto.Nombre;
                     collection[1] = new SQLiteParameter("Precio", DbType.Decimal);
                     collection[1].Value = producto.Precio;
+                    collection[2] = new SQLiteParameter("IdDepartamento", DbType.Int16);
+                    collection[2].Value = producto.Departamento.IdDepartamento;
 
                     cmd.Parameters.AddRange(collection);
 

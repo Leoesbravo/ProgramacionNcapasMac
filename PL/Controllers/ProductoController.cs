@@ -22,9 +22,15 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult Form(int idProducto)
         {
-            if(idProducto == 0)
+            ML.Result resultDepartamentos = BL.Departamento.GetAll();
+            ML.Producto producto = new ML.Producto();
+            producto.Departamento = new ML.Departamento();
+
+            producto.Departamento.Departamentos = resultDepartamentos.Objects;
+
+            if (idProducto == 0)
             {
-                return View();
+                return View(producto);
             }
             else
             {
@@ -56,15 +62,15 @@ namespace PL.Controllers
             else
             {
 
-                ML.Result result = BL.Producto.Update(producto);
-                if (result.Correct)
-                {
-                    ViewBag.Mensaje = "Se ha agregado el producto" + producto.Nombre + "a la base de datos";
-                }
-                else
-                {
-                    ViewBag.Mensaje = "Ocurrio un error" + result.ErrorMessage;
-                }
+                //ML.Result result = BL.Producto.Update(producto);
+                //if (result.Correct)
+                //{
+                //    ViewBag.Mensaje = "Se ha agregado el producto" + producto.Nombre + "a la base de datos";
+                //}
+                //else
+                //{
+                //    ViewBag.Mensaje = "Ocurrio un error" + result.ErrorMessage;
+                //}
                 return PartialView("Modal");
             }
           
