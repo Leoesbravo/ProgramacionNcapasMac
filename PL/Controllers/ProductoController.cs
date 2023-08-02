@@ -50,10 +50,12 @@ namespace PL.Controllers
                 {
                     ViewBag.Mensaje = "Ocurrio un error" + result.ErrorMessage;
                 }
+
                 return PartialView("Modal");
             }
             else
             {
+
                 ML.Result result = BL.Producto.Update(producto);
                 if (result.Correct)
                 {
