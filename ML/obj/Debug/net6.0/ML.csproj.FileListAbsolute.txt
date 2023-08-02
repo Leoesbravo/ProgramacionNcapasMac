@@ -1,0 +1,12 @@
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/bin/Debug/net6.0/ML.deps.json
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/bin/Debug/net6.0/ML.dll
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/bin/Debug/net6.0/ML.pdb
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/obj/Debug/net6.0/ML.csproj.AssemblyReference.cache
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/obj/Debug/net6.0/ML.GeneratedMSBuildEditorConfig.editorconfig
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/obj/Debug/net6.0/ML.AssemblyInfoInputs.cache
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/obj/Debug/net6.0/ML.AssemblyInfo.cs
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/obj/Debug/net6.0/ML.csproj.CoreCompileInputs.cache
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/obj/Debug/net6.0/ML.dll
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/obj/Debug/net6.0/refint/ML.dll
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/obj/Debug/net6.0/ML.pdb
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/ML/obj/Debug/net6.0/ref/ML.dll
