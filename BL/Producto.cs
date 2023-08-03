@@ -204,26 +204,28 @@ namespace BL
                 {
                     var query = context.Productos.FromSqlRaw("ProductoGetAll").ToList();
 
-                    if(query.Count > 0)
+                    if (query.Count > 0)
                     {
                         result.Objects = new List<object>();
-                        foreach(var row in query)
+                        foreach (var row in query)
                         {
                             ML.Producto producto = new ML.Producto();
+                            producto.IdProducto = row.IdProducto;
                             producto.Nombre = row.Nombre;
-                            producto.Precio = row.Precio;
+                            producto.Precio = row.Precio.Value;
 
                             producto.Departamento = new ML.Departamento();
-                            producto.Departamento.IdDepartamento = query.IdDepartamento;
+                            producto.Departamento.IdDepartamento = row.IdDepartamento.Value;
 
-                            result.Objects.Add();
+                            result.Objects.Add(producto);
                         }
+                        result.Correct = true;
                     }
                 }
             }
-            catch ()
+            catch (Exception ex)
             {
-
+                result.ErrorMessage = ex.Message;
             }
             return result;
         }

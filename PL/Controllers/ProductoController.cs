@@ -13,7 +13,7 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            ML.Result result = BL.Producto.GetAll();
+            ML.Result result = BL.Producto.GetAllEF();
             ML.Producto producto = new ML.Producto();
             producto.Productos = result.Objects;
 

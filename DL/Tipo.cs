@@ -3,13 +3,11 @@ using System.Collections.Generic;
 
 namespace DL;
 
-public partial class Producto
+public partial class Tipo
 {
-    public int IdProducto { get; set; }
+    public int IdTipo { get; set; }
 
     public string? Nombre { get; set; }
-
-    public decimal? Precio { get; set; }
 
     public int? IdDepartamento { get; set; }
 

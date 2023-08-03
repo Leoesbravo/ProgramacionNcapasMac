@@ -19,6 +19,8 @@ public partial class ProgramacionNcapasContext : DbContext
 
     public virtual DbSet<Producto> Productos { get; set; }
 
+    public virtual DbSet<Tipo> Tipos { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=localhost,1433;Initial Catalog=ProgramacionNCapas;User ID=sa;Password=pass@word1;Encrypt=True;TrustServerCertificate=True;");
@@ -46,6 +48,25 @@ public partial class ProgramacionNcapasContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Precio).HasColumnType("decimal(18, 2)");
+
+            entity.HasOne(d => d.IdDepartamentoNavigation).WithMany(p => p.Productos)
+                .HasForeignKey(d => d.IdDepartamento)
+                .HasConstraintName("FK__Producto__IdDepa__5BE2A6F2");
+        });
+
+        modelBuilder.Entity<Tipo>(entity =>
+        {
+            entity.HasKey(e => e.IdTipo).HasName("PK__Tipo__9E3A29A580FBEBA1");
+
+            entity.ToTable("Tipo");
+
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.IdDepartamentoNavigation).WithMany(p => p.Tipos)
+                .HasForeignKey(d => d.IdDepartamento)
+                .HasConstraintName("FK__Tipo__IdDepartam__5EBF139D");
         });
 
         OnModelCreatingPartial(modelBuilder);
