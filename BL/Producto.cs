@@ -229,5 +229,61 @@ namespace BL
             }
             return result;
         }
+        public static ML.Result AddEF(ML.Producto producto)
+        {
+            ML.Result result = new Result();
+            try
+            {
+                using (DL.ProgramacionNcapasContext context = new DL.ProgramacionNcapasContext())
+                {
+                    var query = context.Database.ExecuteSqlRaw($"ProductoAdd '{producto.Nombre}', {producto.Precio}, {producto.Departamento.IdDepartamento}");
+
+                    if (query > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+        public static ML.Result GetByIdEF(int idProducto)
+        {
+            ML.Result result = new Result();
+            try
+            {
+                using (DL.ProgramacionNcapasContext context = new DL.ProgramacionNcapasContext())
+                {
+                    var row = context.Productos.FromSqlRaw($"ProductoGetById {idProducto}").AsEnumerable().FirstOrDefault();
+
+                    if (row != null)
+                    {
+
+                        ML.Producto producto = new ML.Producto();
+                        producto.IdProducto = row.IdProducto;
+                        producto.Nombre = row.Nombre;
+                        producto.Precio = row.Precio.Value;
+
+                        producto.Departamento = new ML.Departamento();
+                        producto.Departamento.IdDepartamento = row.IdDepartamento.Value;
+
+                        result.Correct = true;
+                        result.Object = producto;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
     }
 }

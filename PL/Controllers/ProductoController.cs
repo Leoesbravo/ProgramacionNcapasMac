@@ -34,7 +34,7 @@ namespace PL.Controllers
             }
             else
             {
-                ML.Result result = BL.Producto.GetById(idProducto);
+                ML.Result result = BL.Producto.GetByIdEF(idProducto);
                 producto = (ML.Producto)result.Object;
                 producto.Departamento.Departamentos = resultDepartamentos.Objects;
                 return View(producto);
@@ -45,7 +45,7 @@ namespace PL.Controllers
         {
             if(producto.IdProducto == 0)
             {
-                ML.Result result = BL.Producto.Add(producto);
+                ML.Result result = BL.Producto.AddEF(producto);
                 if (result.Correct)
                 {
                     ViewBag.Mensaje = "Se ha agregado el producto" + producto.Nombre + "a la base de datos";

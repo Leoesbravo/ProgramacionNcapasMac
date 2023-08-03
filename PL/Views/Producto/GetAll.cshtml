@@ -27,7 +27,7 @@
                 <td>@producto.Nombre</td>
                 <td>$ @producto.Precio</td>
                 <td>@producto.Departamento.IdDepartamento</td>
-                <td class="text-center"><a class="btn btn-danger" href="@Url.Action("Delete","Producto", new {idProducto = producto.IdProducto })"><i class="bi bi-trash2-fill"></i></a></td>
+                <td class="text-center"><a class="btn btn-danger" href="@Url.Action("Delete","Producto", new {idProducto = producto.IdProducto })" onclick="return confirm('Seguro que desea eliminar el registro?');" ><i class="bi bi-trash2-fill"></i></a></td>
             </tr>
 
         }
