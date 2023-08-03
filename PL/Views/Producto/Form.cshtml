@@ -32,12 +32,20 @@
                 @Html.Label("Departamento")
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-store" style="color: #0056d6;"></i></span>
-                    @Html.DropDownListFor(model => model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona una opción", new { @class = "form-control"})
+                    @Html.DropDownListFor(model => model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona una opción", new { @class = "form-control" })
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <button type="submit" class="btn btn-success">Agregar</button>
+            @if (@Model.IdProducto == 0)
+            {
+                <button type="submit" class="btn btn-success"><i class="bi bi-save-fill"></i> Agregar</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-info">Actualizar</button>
+            }
+
             @Html.ActionLink("Regresar", "GetAll", "Producto", htmlAttributes: new { @class = "btn btn-danger" })
         </div>
 

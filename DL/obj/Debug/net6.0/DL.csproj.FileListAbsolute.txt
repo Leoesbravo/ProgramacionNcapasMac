@@ -1,4 +1,5 @@
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/bin/Debug/net6.0/DL.deps.json
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/bin/Debug/net6.0/DL.runtimeconfig.json
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/bin/Debug/net6.0/DL.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/bin/Debug/net6.0/DL.pdb
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/obj/Debug/net6.0/DL.csproj.AssemblyReference.cache
@@ -9,6 +10,5 @@
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/obj/Debug/net6.0/DL.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/obj/Debug/net6.0/refint/DL.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/obj/Debug/net6.0/DL.pdb
-/Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/obj/Debug/net6.0/ref/DL.dll
-/Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/bin/Debug/net6.0/DL.runtimeconfig.json
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/obj/Debug/net6.0/DL.genruntimeconfig.cache
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/DL/obj/Debug/net6.0/ref/DL.dll

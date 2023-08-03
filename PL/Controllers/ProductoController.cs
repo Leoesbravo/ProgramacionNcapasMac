@@ -34,12 +34,10 @@ namespace PL.Controllers
             }
             else
             {
-                //ML.Result result = BL.Producto.GetById(idProducto);
-                //ML.Producto producto = new ML.Producto();
-                //producto = (ML.Producto)result.Object; unboxing
-                //return View(producto);
-
-                return View();
+                ML.Result result = BL.Producto.GetById(idProducto);
+                producto = (ML.Producto)result.Object;
+                producto.Departamento.Departamentos = resultDepartamentos.Objects;
+                return View(producto);
             }
         }
         [HttpPost]
@@ -61,16 +59,8 @@ namespace PL.Controllers
             }
             else
             {
-
-                //ML.Result result = BL.Producto.Update(producto);
-                //if (result.Correct)
-                //{
-                //    ViewBag.Mensaje = "Se ha agregado el producto" + producto.Nombre + "a la base de datos";
-                //}
-                //else
-                //{
-                //    ViewBag.Mensaje = "Ocurrio un error" + result.ErrorMessage;
-                //}
+                
+                
                 return PartialView("Modal");
             }
           

@@ -1228,6 +1228,8 @@
         "dependencies": {
           "DL": "1.0.0",
           "ML": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "7.0.9",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9",
           "System.Data.SQLite": "1.0.118"
         },
         "compile": {
@@ -1241,6 +1243,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": "7.0.9",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9",
           "System.Data.SQLite": "1.0.118"
         },
@@ -3849,6 +3852,7 @@
     "net6.0": [
       "BL >= 1.0.0",
       "ML >= 1.0.0",
+      "Microsoft.EntityFrameworkCore >= 7.0.9",
       "System.Data.SQLite >= 1.0.118"
     ]
   },
@@ -3896,6 +3900,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[7.0.9, )"
+          },
           "System.Data.SQLite": {
             "target": "Package",
             "version": "[1.0.118, )"
