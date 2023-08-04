@@ -15,10 +15,11 @@
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Nombre)
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-basket-fill" style="color: #0056d6;"></i></span>
-                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Ejemplo: Papitas" })
+                    <span class="input-group-text" id="addonNombre"><i class="bi bi-basket-fill" style="color: #0056d6;"></i></span>
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @Id="txtNombre", @placeholder = "Ejemplo: Papitas", @OnKeyPress= "SoloLetras(event, 'lblNombre', 'txtNombre', 'addonNombre')" })
                 </div>
                 @Html.ValidationMessageFor(model => model.Nombre)
+                @Html.Label("",null,  new { @id="lblNombre"})
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Precio)
@@ -29,7 +30,14 @@
                 @Html.ValidationMessageFor(model => model.Precio)
             </div>
             <div class="col-md-3">
-                @Html.Label("Departamento")
+                @Html.Label("Areas")
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-store" style="color: #0056d6;"></i></span>
+                    @Html.DropDownListFor(model => model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una opción", new { @class = "form-control", @id = "ddlArea" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Departamentos")
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-store" style="color: #0056d6;"></i></span>
                     @if (Model.Departamento.Departamentos == null)
@@ -44,31 +52,26 @@
 
                 </div>
             </div>
-            <div class="col-md-3">
-                @Html.Label("Areas")
-                <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-store" style="color: #0056d6;"></i></span>
-                    @Html.DropDownListFor(model => model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una opción", new { @class = "form-control", @id = "ddlArea" })
-                </div>
-            </div>
         </div>
-        <div class="col-md-3">
-            @if (@Model.IdProducto == 0)
-            {
-                <button type="submit" class="btn btn-success"><i class="bi bi-save-fill"></i> Agregar</button>
-            }
-            else
-            {
-                <button type="submit" class="btn btn-info">Actualizar</button>
-            }
+        <div class="row">
+            <div class="col-md-12 text-center">
+                @if (@Model.IdProducto == 0)
+                {
+                    <button type="submit" class="btn btn-success" disabled><i class="bi bi-save-fill"></i> Agregar</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-info">Actualizar</button>
+                }
 
-            @Html.ActionLink("Regresar", "GetAll", "Producto", htmlAttributes: new { @class = "btn btn-danger" })
+                @Html.ActionLink("Regresar", "GetAll", "Producto", htmlAttributes: new { @class = "btn btn-danger" })
+            </div>
         </div>
 
 
     }
 </div>
-@section Scripts
+@section Scripts  
 {
     <script type="text/javascript">
 
@@ -96,6 +99,24 @@
 
       });
 
+        function SoloLetras(caracter, idLabel, idTextBox, addon) {
+
+            if (!/^[a-zA-Z]/g.test(caracter.key)) {
+                $('#' + idLabel).text("Solo se permiten letras");
+                $('#' + idLabel).css({ "color": "red" });
+                $('#' + idTextBox).css({ "border-color": "red" });
+                $('#' + addon).css({ "border-color": "red", "background-color": "#f8d7da" });
+                return false;
+            }
+            else {
+                $('#' + idLabel).text("");
+                $('#' + idLabel).css({ "color": "green" });
+                $('#' + idTextBox).css({ "border-color": "green" });
+                $('#' + addon).css({ "border-color": "green", "background-color": "#5CB443" });
+
+            }
+        }
+
     </script>
 
-    }
+}

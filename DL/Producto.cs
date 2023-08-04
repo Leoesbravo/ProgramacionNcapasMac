@@ -14,4 +14,8 @@ public partial class Producto
     public int? IdDepartamento { get; set; }
 
     public virtual Departamento? IdDepartamentoNavigation { get; set; }
+
+//agregadas por mi
+
+    public int Area { get; set; }
 }

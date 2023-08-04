@@ -38,6 +38,9 @@ namespace PL.Controllers
                 ML.Result result = BL.Producto.GetByIdEF(idProducto);
                 producto = (ML.Producto)result.Object;
                 producto.Departamento.Area.Areas = resultAreas.Objects;
+                result = BL.Departamento.GetByIdArea(producto.Departamento.Area.IdArea);
+                producto.Departamento.Departamentos = result.Objects;
+
                 return View(producto);
             }
         }

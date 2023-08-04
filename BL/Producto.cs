@@ -274,6 +274,9 @@ namespace BL
                         producto.Departamento = new ML.Departamento();
                         producto.Departamento.IdDepartamento = row.IdDepartamento.Value;
 
+                        producto.Departamento.Area = new ML.Area();
+                        producto.Departamento.Area.IdArea = row.Area;
+
                         result.Correct = true;
                         result.Object = producto;
                     }
