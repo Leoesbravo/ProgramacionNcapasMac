@@ -32,7 +32,23 @@
                 @Html.Label("Departamento")
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-store" style="color: #0056d6;"></i></span>
-                    @Html.DropDownListFor(model => model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona una opción", new { @class = "form-control" })
+                    @if (Model.Departamento.Departamentos == null)
+                    {
+                        @Html.DropDownListFor(model => model.Departamento.IdDepartamento, new SelectList(string.Empty, "Value", "Text"), "Selecciona una opción", new { @class = "form-control", @id = "ddlDepartamento" })
+                    }
+                    else
+                    {
+                        @Html.DropDownListFor(model => model.Departamento.IdDepartamento, new SelectList(Model.Departamento.Departamentos, "IdDepartamento", "Nombre"), "Selecciona una opción", new { @class = "form-control", @id = "ddlDepartamento" })
+
+                    }
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.Label("Areas")
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-store" style="color: #0056d6;"></i></span>
+                    @Html.DropDownListFor(model => model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una opción", new { @class = "form-control", @id = "ddlArea" })
                 </div>
             </div>
         </div>
@@ -52,3 +68,34 @@
 
     }
 </div>
+@section Scripts
+{
+    <script type="text/javascript">
+
+      $(document).ready(function () {
+                $("#ddlArea").change(function () {
+                    $("#ddlDepartamento").empty();
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetDepartamentosByIdArea")',
+                        dataType: 'json',
+                        data: { idArea: $("#ddlArea").val() },
+                        success: function (departamentos) {
+                            $("#ddlDepartamento").append('<option value="0">' + 'Seleccione una opción' + '</option>');
+                            $.each(departamentos, function (i, departamentos) {
+                                $("#ddlDepartamento").append('<option value="'
+                                    + departamentos.idDepartamento + '">'
+                                    + departamentos.nombre + '</option>');
+                            });
+                        },
+                        error: function (ex) {
+                            alert('Failed.' + ex);
+                        }
+                    });
+                });
+
+      });
+
+    </script>
+
+    }

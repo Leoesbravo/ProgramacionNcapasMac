@@ -15,11 +15,13 @@ public partial class ProgramacionNcapasContext : DbContext
     {
     }
 
+    public virtual DbSet<Area> Areas { get; set; }
+
     public virtual DbSet<Departamento> Departamentos { get; set; }
 
     public virtual DbSet<Producto> Productos { get; set; }
 
-    public virtual DbSet<Tipo> Tipos { get; set; }
+    public virtual DbSet<Proveedor> Proveedors { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -27,6 +29,17 @@ public partial class ProgramacionNcapasContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Area>(entity =>
+        {
+            entity.HasKey(e => e.IdArea).HasName("PK__Area__2FC141AAE43F34B6");
+
+            entity.ToTable("Area");
+
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<Departamento>(entity =>
         {
             entity.HasKey(e => e.IdDepartamento).HasName("PK__Departam__787A433DEE9C5BB1");
@@ -36,6 +49,10 @@ public partial class ProgramacionNcapasContext : DbContext
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
+            entity.HasOne(d => d.IdAreaNavigation).WithMany(p => p.Departamentos)
+                .HasForeignKey(d => d.IdArea)
+                .HasConstraintName("FK__Departame__IdAre__6383C8BA");
         });
 
         modelBuilder.Entity<Producto>(entity =>
@@ -54,19 +71,18 @@ public partial class ProgramacionNcapasContext : DbContext
                 .HasConstraintName("FK__Producto__IdDepa__5BE2A6F2");
         });
 
-        modelBuilder.Entity<Tipo>(entity =>
+        modelBuilder.Entity<Proveedor>(entity =>
         {
-            entity.HasKey(e => e.IdTipo).HasName("PK__Tipo__9E3A29A580FBEBA1");
+            entity.HasKey(e => e.IdProveedor).HasName("PK__Proveedo__E8B631AF021780E7");
 
-            entity.ToTable("Tipo");
+            entity.ToTable("Proveedor");
 
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-
-            entity.HasOne(d => d.IdDepartamentoNavigation).WithMany(p => p.Tipos)
-                .HasForeignKey(d => d.IdDepartamento)
-                .HasConstraintName("FK__Tipo__IdDepartam__5EBF139D");
+            entity.Property(e => e.Telefono)
+                .HasMaxLength(20)
+                .IsUnicode(false);
         });
 
         OnModelCreatingPartial(modelBuilder);

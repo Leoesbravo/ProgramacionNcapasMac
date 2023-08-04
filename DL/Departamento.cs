@@ -9,7 +9,9 @@ public partial class Departamento
 
     public string? Nombre { get; set; }
 
-    public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
+    public int? IdArea { get; set; }
 
-    public virtual ICollection<Tipo> Tipos { get; set; } = new List<Tipo>();
+    public virtual Area? IdAreaNavigation { get; set; }
+
+    public virtual ICollection<Producto> Productos { get; set; } = new List<Producto>();
 }

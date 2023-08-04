@@ -9,6 +9,7 @@ namespace ML
 		public int IdDepartamento { get; set; }
 		public string Nombre { get; set; }
 		public List<object> Departamentos { get; set; }
+		public ML.Area Area { get; set; }
 	}
 }
 

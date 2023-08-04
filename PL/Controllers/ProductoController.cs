@@ -22,11 +22,12 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult Form(int idProducto)
         {
-            ML.Result resultDepartamentos = BL.Departamento.GetAll();
+            ML.Result resultAreas = BL.Area.GetAllEF();
             ML.Producto producto = new ML.Producto();
             producto.Departamento = new ML.Departamento();
+            producto.Departamento.Area = new ML.Area();
 
-            producto.Departamento.Departamentos = resultDepartamentos.Objects;
+            producto.Departamento.Area.Areas = resultAreas.Objects;
 
             if (idProducto == 0)
             {
@@ -36,7 +37,7 @@ namespace PL.Controllers
             {
                 ML.Result result = BL.Producto.GetByIdEF(idProducto);
                 producto = (ML.Producto)result.Object;
-                producto.Departamento.Departamentos = resultDepartamentos.Objects;
+                producto.Departamento.Area.Areas = resultAreas.Objects;
                 return View(producto);
             }
         }
@@ -79,6 +80,11 @@ namespace PL.Controllers
                 ViewBag.Mensaje = "Ocurrio un error" + result.ErrorMessage;
             }
             return PartialView("Modal");
+        }
+        public JsonResult GetDepartamentosByIdArea(int idArea)
+        {
+            ML.Result result = BL.Departamento.GetByIdArea(idArea);
+            return Json(result.Objects);
         }
     }
 }
