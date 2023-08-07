@@ -216,6 +216,7 @@ namespace BL
 
                             producto.Departamento = new ML.Departamento();
                             producto.Departamento.IdDepartamento = row.IdDepartamento.Value;
+                            producto.Imagen = row.Imagen;
 
                             result.Objects.Add(producto);
                         }
@@ -236,7 +237,7 @@ namespace BL
             {
                 using (DL.ProgramacionNcapasContext context = new DL.ProgramacionNcapasContext())
                 {
-                    var query = context.Database.ExecuteSqlRaw($"ProductoAdd '{producto.Nombre}', {producto.Precio}, {producto.Departamento.IdDepartamento}");
+                    var query = context.Database.ExecuteSqlRaw($"ProductoAdd '{producto.Nombre}', {producto.Precio}, {producto.Departamento.IdDepartamento}, '{producto.Imagen}'");
 
                     if (query > 0)
                     {

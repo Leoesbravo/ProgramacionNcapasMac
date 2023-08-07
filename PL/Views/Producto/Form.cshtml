@@ -16,10 +16,10 @@
                 @Html.LabelFor(model => model.Nombre)
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="addonNombre"><i class="bi bi-basket-fill" style="color: #0056d6;"></i></span>
-                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @Id="txtNombre", @placeholder = "Ejemplo: Papitas", @OnKeyPress= "SoloLetras(event, 'lblNombre', 'txtNombre', 'addonNombre')" })
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @Id = "txtNombre", @placeholder = "Ejemplo: Papitas", @OnKeyPress = "SoloLetras(event, 'lblNombre', 'txtNombre', 'addonNombre')" })
                 </div>
                 @Html.ValidationMessageFor(model => model.Nombre)
-                @Html.Label("",null,  new { @id="lblNombre"})
+                @Html.Label("", null, new { @id = "lblNombre" })
             </div>
             <div class="col-md-3">
                 @Html.LabelFor(model => model.Precio)
@@ -57,7 +57,7 @@
             <div class="col-md-12 text-center">
                 @if (@Model.IdProducto == 0)
                 {
-                    <button type="submit" class="btn btn-success" disabled><i class="bi bi-save-fill"></i> Agregar</button>
+                    <button type="submit" class="btn btn-success" ><i class="bi bi-save-fill"></i> Agregar</button>
                 }
                 else
                 {
@@ -66,6 +66,17 @@
 
                 @Html.ActionLink("Regresar", "GetAll", "Producto", htmlAttributes: new { @class = "btn btn-danger" })
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Imagen)
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-card-image"></i></span>
+                    <input id="fuImage" type='file' class="form-control" name="fuImage" onchange="validateFile(this), readURL(this);" />
+                </div>
+                <img id="Img" src="https://www.computerhope.com/jargon/g/guest-user.png" style="width:250px ; height:250px" />
+            </div>
+
         </div>
 
 
@@ -102,6 +113,7 @@
         function SoloLetras(caracter, idLabel, idTextBox, addon) {
 
             if (!/^[a-zA-Z]/g.test(caracter.key)) {
+                caracter.preventDefault();
                 $('#' + idLabel).text("Solo se permiten letras");
                 $('#' + idLabel).css({ "color": "red" });
                 $('#' + idTextBox).css({ "border-color": "red" });
@@ -117,6 +129,38 @@
             }
         }
 
+        function validateFile() {
+            var allowedExtension = ['jpeg', 'jpg', 'png'];
+            var fileExtension = document.getElementById('fuImage').value.split('.').pop().toLowerCase();
+            var isValidFile = false;
+
+            for (var index in allowedExtension) {
+
+                if (fileExtension === allowedExtension[index]) {
+                    isValidFile = true;
+                    break;
+                }
+            }
+
+            if (!isValidFile) {
+                alert('Las extensiones permitidas son : *.' + allowedExtension.join(', *.'));
+                document.getElementById('fuImage').value = ""
+            }
+
+            return isValidFile;
+        }
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#Img').attr('src', e.target.result);
+
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 
 }

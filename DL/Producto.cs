@@ -12,6 +12,7 @@ public partial class Producto
     public decimal? Precio { get; set; }
 
     public int? IdDepartamento { get; set; }
+    public string? Imagen { get; set; }
 
     public virtual Departamento? IdDepartamentoNavigation { get; set; }
 

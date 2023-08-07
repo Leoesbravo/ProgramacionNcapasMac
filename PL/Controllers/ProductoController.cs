@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -47,7 +48,15 @@ namespace PL.Controllers
         [HttpPost]
         public ActionResult Form(ML.Producto producto)
         {
-            if(producto.IdProducto == 0)
+            IFormFile file = Request.Form.Files["fuImage"];
+
+            if (file != null)
+            {
+                byte[] ImagenBytes = ConvertToBytes(file);
+                producto.Imagen = Convert.ToBase64String(ImagenBytes);
+            }
+
+            if (producto.IdProducto == 0)
             {
                 ML.Result result = BL.Producto.AddEF(producto);
                 if (result.Correct)
@@ -88,6 +97,16 @@ namespace PL.Controllers
         {
             ML.Result result = BL.Departamento.GetByIdArea(idArea);
             return Json(result.Objects);
+        }
+        public static byte[] ConvertToBytes(IFormFile imagen)
+        {
+
+            using var fileStream = imagen.OpenReadStream();
+
+            byte[] bytes = new byte[fileStream.Length];
+            fileStream.Read(bytes, 0, (int)fileStream.Length);
+
+            return bytes;
         }
     }
 }

@@ -16,6 +16,7 @@
             <td class="text-center">Nombre</td>
             <td class="text-center">Precio</td>
             <td class="text-center">Departamento</td>
+            <td class="text-center">Imagen</td>          
             <td class="text-center">Eliminar</td>
         </tr>
     </thead>
@@ -27,7 +28,16 @@
                 <td>@producto.Nombre</td>
                 <td>$ @producto.Precio</td>
                 <td>@producto.Departamento.IdDepartamento</td>
-                <td class="text-center"><a class="btn btn-danger" href="@Url.Action("Delete","Producto", new {idProducto = producto.IdProducto })" onclick="return confirm('Seguro que desea eliminar el registro?');" ><i class="bi bi-trash2-fill"></i></a></td>
+                @if (producto.Imagen != null)
+                {
+                    <td class="text-center"><img id="Img" src="data:image/*;base64,@producto.Imagen" style="width:50px ; height:50px" /></td>
+                }
+                else
+                {
+                    <td class="text-center"><img id="Img" src="https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg" style="width:50px ; height:50px" /></td>
+                }
+
+                <td class="text-center"><a class="btn btn-danger" href="@Url.Action("Delete","Producto", new {idProducto = producto.IdProducto })" onclick="return confirm('Seguro que desea eliminar el registro?');"><i class="bi bi-trash2-fill"></i></a></td>
             </tr>
 
         }
