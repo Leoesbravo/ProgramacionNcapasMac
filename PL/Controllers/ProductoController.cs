@@ -14,9 +14,25 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            ML.Result result = BL.Producto.GetAllEF();
             ML.Producto producto = new ML.Producto();
+            producto.Departamento = new ML.Departamento();
+            producto.Departamento.Area = new ML.Area();
+            ML.Result result = BL.Producto.GetAllEF(producto);
+
             producto.Productos = result.Objects;
+            result = BL.Area.GetAllEF();
+            producto.Departamento.Area.Areas = result.Objects;
+
+            return View(producto);
+        }
+        [HttpPost]
+        public ActionResult GetAll(ML.Producto producto)
+        {
+            ML.Result result = BL.Producto.GetAllEF(producto);
+
+            producto.Productos = result.Objects;
+            result = BL.Area.GetAllEF();
+            producto.Departamento.Area.Areas = result.Objects;
 
             return View(producto);
         }

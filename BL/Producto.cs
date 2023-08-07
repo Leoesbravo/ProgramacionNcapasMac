@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
+using System.Drawing.Drawing2D;
 using Microsoft.EntityFrameworkCore;
 using ML;
 
@@ -195,14 +196,15 @@ namespace BL
             }
             return result;
         }
-        public static ML.Result GetAllEF()
+        public static ML.Result GetAllEF(ML.Producto productos)
         {
             ML.Result result = new Result();
             try
             {
                 using (DL.ProgramacionNcapasContext context = new DL.ProgramacionNcapasContext())
                 {
-                    var query = context.Productos.FromSqlRaw("ProductoGetAll").ToList();
+                    productos.Nombre = (productos.Nombre == null) ? "" : productos.Nombre;
+                    var query = context.Productos.FromSqlRaw($"ProductoGetAll {productos.Departamento.Area.IdArea},'{productos.Nombre}'").ToList();
 
                     if (query.Count > 0)
                     {
@@ -271,6 +273,7 @@ namespace BL
                         producto.IdProducto = row.IdProducto;
                         producto.Nombre = row.Nombre;
                         producto.Precio = row.Precio.Value;
+                        producto.Imagen = row.Imagen;
 
                         producto.Departamento = new ML.Departamento();
                         producto.Departamento.IdDepartamento = row.IdDepartamento.Value;
