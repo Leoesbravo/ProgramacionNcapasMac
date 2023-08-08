@@ -12,6 +12,7 @@ namespace ML
 		public string ApellidoMaterno { get; set; }
 		public string Email { get; set; }
 		public byte[] Password { get; set; }
+		public ML.Rol Rol { get; set; }
 	}
 }
 

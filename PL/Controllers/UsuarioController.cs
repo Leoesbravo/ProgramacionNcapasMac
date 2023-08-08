@@ -11,8 +11,8 @@ namespace PL.Controllers
 {
     public class UsuarioController : Controller
     {
-        // GET: /<controller>/
-        public ActionResult  Login()
+        [HttpGet]
+        public ActionResult Login()
         {
             return View();
         }
@@ -25,8 +25,36 @@ namespace PL.Controllers
 
             ML.Result result = BL.Usuario.Add(usuario);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Form", "Usuario", usuario);
+        }
+        [HttpGet]
+        public ActionResult Form(ML.Usuario usuario, int sobrecarga)
+        {
+            if (usuario.Email == null)
+            {
+                return View(usuario);
+            }
+            else
+            {
+                return View(usuario);
+            }
+            
+        }
+        [HttpPost]
+        public ActionResult Form(ML.Usuario usuario)
+        {
+            if(usuario.IdUsuario != 0)
+            {
+                ML.Result result = BL.Usuario.Update(usuario);
+                ViewBag.Mensaje = "Se ha completado tu informacion";
+            }
+            else
+            {
+                ML.Result result = BL.Usuario.Add(usuario);
+                ViewBag.Mensaje = "Se ha dado de alta al nuevo usuario";
+            }
+            return PartialView("Modal");
+            
         }
     }
 }
-

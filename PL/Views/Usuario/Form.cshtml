@@ -1,0 +1,32 @@
+﻿@model ML.Usuario
+
+<div class="container">
+    <div class="text-center">
+        <h1>Formulario de Productos</h1>
+        <h5>Ingrese la información del producto a registrar</h5>
+    </div>
+    <hr />
+    @if (Model.Email == null)
+    {
+        <h1>todo el formulario</h1>
+    }
+    else
+    {
+        @using (@Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                @Html.TextBoxFor(model => model.IdUsuario, new { @class = "form-control", @style = "display: none" })
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ApellidoMaterno)
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="addonNombre"><i class="bi bi-basket-fill" style="color: #0056d6;"></i></span>
+                        @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @Id = "txtApellidoMaterno" })
+                    </div>  
+                    @Html.Label("", null, new { @id = "lblApellidoMaterno" })
+                </div>
+            </div>
+        }
+            <button type="submit">Actualizar</button>
+
+    }
+</div>

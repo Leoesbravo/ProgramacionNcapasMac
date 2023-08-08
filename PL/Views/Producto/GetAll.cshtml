@@ -4,28 +4,28 @@
     <h1>Lista de Productos</h1>
 </div>
 <hr />
+    @using (Html.BeginForm("GetAll", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-md-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="addonNombre"><i class="bi bi-basket-fill" style="color: #0056d6;"></i></span>
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @Id = "txtNombre", @placeholder = "Ejemplo: Papitas", @OnKeyPress = "SoloLetras(event, 'lblNombre', 'txtNombre', 'addonNombre')" })
+                </div>
+            </div>
 
-@using (Html.BeginForm("GetAll", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <div class="row">
-        <div class="col-md-3">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="addonNombre"><i class="bi bi-basket-fill" style="color: #0056d6;"></i></span>
-                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @Id = "txtNombre", @placeholder = "Ejemplo: Papitas", @OnKeyPress = "SoloLetras(event, 'lblNombre', 'txtNombre', 'addonNombre')" })
+            <div class="col-md-3">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-store" style="color: #0056d6;"></i></span>
+                    @Html.DropDownListFor(model => model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una opción", new { @class = "form-control", @id = "ddlArea" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
             </div>
         </div>
+    }
 
-        <div class="col-md-3">
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-store" style="color: #0056d6;"></i></span>
-                @Html.DropDownListFor(model => model.Departamento.Area.IdArea, new SelectList(Model.Departamento.Area.Areas, "IdArea", "Nombre"), "Selecciona una opción", new { @class = "form-control", @id = "ddlArea" })
-            </div>
-        </div>
-        <div class="col-md-3">
-            <button type="submit" class="btn btn-dark"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
-        </div>
-    </div>
-}
 <div class="row">
     <div class="col-auto ms-auto">
         @Html.ActionLink("Agregar", "Form", "Producto", htmlAttributes: new { @class = "btn btn-success " })

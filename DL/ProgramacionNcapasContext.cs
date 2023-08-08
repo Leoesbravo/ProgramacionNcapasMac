@@ -23,6 +23,8 @@ public partial class ProgramacionNcapasContext : DbContext
 
     public virtual DbSet<Proveedor> Proveedors { get; set; }
 
+    public virtual DbSet<Rol> Rols { get; set; }
+
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -88,6 +90,17 @@ public partial class ProgramacionNcapasContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<Rol>(entity =>
+        {
+            entity.HasKey(e => e.IdRol).HasName("PK__Rol__2A49584C59564D43");
+
+            entity.ToTable("Rol");
+
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+        });
+
         modelBuilder.Entity<Usuario>(entity =>
         {
             entity.HasKey(e => e.IdUsuario).HasName("PK__Usuario__5B65BF975E28D9D3");
@@ -107,6 +120,10 @@ public partial class ProgramacionNcapasContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Password).HasMaxLength(20);
+
+            entity.HasOne(d => d.RolNavigation).WithMany(p => p.Usuarios)
+                .HasForeignKey(d => d.Rol)
+                .HasConstraintName("FK__Usuario__Rol__6D0D32F4");
         });
 
         OnModelCreatingPartial(modelBuilder);

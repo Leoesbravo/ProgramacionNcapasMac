@@ -16,4 +16,8 @@ public partial class Usuario
     public string? Email { get; set; }
 
     public byte[]? Password { get; set; }
+
+    public int? Rol { get; set; }
+
+    public virtual Rol? RolNavigation { get; set; }
 }
