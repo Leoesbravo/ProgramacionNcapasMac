@@ -22,20 +22,21 @@
                 <h2 class="form_title title">Crear Cuenta</h2>
                 @Html.TextBoxFor(model => model.Nombre, new { @class = "form__input", @placeholder = "Nombre" })
                 @Html.TextBoxFor(model => model.ApellidoPatenro, new { @class = "form__input", @placeholder = "Apellido" })
-                @Html.TextBoxFor(model => model.Email, new { @class = "form__input", @placeholder = "Email", @type="email" })
+                @Html.TextBoxFor(model => model.Email, new { @class = "form__input", @placeholder = "Email", @type = "email" })
                 <input class="form__input" type="password" name="passwordIngresado" placeholder="Contraseña">
 
-                <button class="" type="submit">Registrar</button>
+                <button class="button" type="submit">Registrar</button>
 
             }
         </div>
         <div class="container b-container" id="b-container">
-            <form class="form" id="b-form" method="" action="">
+            @using (@Html.BeginForm("Login", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form" }))
+            {
                 <h2 class="form_title title">Iniciar Sesión</h2>
-                <input class="form__input" type="text" placeholder="Email">
-                <input class="form__input" type="password" placeholder="Password"><a class="form__link">Olvide mi contraseña</a>
-                <button class="form__button button submit">Entrar</button>
-            </form>
+                <input class="form__input" type="text" placeholder="Email" name="email">
+                <input class="form__input" type="password" name="password" placeholder="Password"><a class="form__link">Olvide mi contraseña</a>
+                <button class=" button" type="submit">Entrar</button>
+            }
         </div>
         <div class="switch" id="switch-cnt">
             <div class="switch__circle"></div>

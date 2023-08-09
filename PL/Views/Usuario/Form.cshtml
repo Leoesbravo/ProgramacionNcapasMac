@@ -1,17 +1,61 @@
 ﻿@model ML.Usuario
 
 <div class="container">
-    <div class="text-center">
-        <h1>Formulario de Productos</h1>
-        <h5>Ingrese la información del producto a registrar</h5>
-    </div>
-    <hr />
     @if (Model.Email == null)
     {
-        <h1>todo el formulario</h1>
+        <div class="text-center">
+            <h1>Formulario de Usuario</h1>
+            <h5>Lllene los campos con la información solicitada</h5>
+        </div>
+        <hr />
+
+        @using (@Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                @Html.TextBoxFor(model => model.IdUsuario, new { @class = "form-control", @style = "display: none" })
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Nombre)
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="addonNombre"><i class="fa-solid fa-circle-user" style="color: #0056d6;"></i></span>
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @Id = "txtApellidoMaterno" })
+                    </div>
+                    @Html.Label("", null, new { @id = "lblApellidoMaterno" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ApellidoPatenro)
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="addonNombre"><i class="fa-solid fa-circle-user" style="color: #0056d6;"></i></span>
+                        @Html.TextBoxFor(model => model.ApellidoPatenro, new { @class = "form-control", @Id = "txtApellidoMaterno" })
+                    </div>
+                    @Html.Label("", null, new { @id = "lblApellidoMaterno" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Email)
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="addonNombre"><i class="fa-solid fa-at" style="color: #0056d6;"></i></span>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @Id = "txtApellidoMaterno" })
+                    </div>
+                    @Html.Label("", null, new { @id = "lblApellidoMaterno" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Password)
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="addonNombre"><i class="fa-solid fa-key" style="color: #0056d6;"></i></span>
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @Id = "txtApellidoMaterno" })
+                    </div>
+                    @Html.Label("", null, new { @id = "lblApellidoMaterno" })
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success"><i class="fa-regular fa-floppy-disk"></i> Agregar</button>
+        }
     }
     else
     {
+        <div class="text-center">
+            <h1>Casi listo @Model.Nombre !</h1>
+            <h5>Por favor termina de llenar tu información personal</h5>
+        </div>
+        <hr />
         @using (@Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="row">
@@ -21,12 +65,17 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="addonNombre"><i class="bi bi-basket-fill" style="color: #0056d6;"></i></span>
                         @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @Id = "txtApellidoMaterno" })
-                    </div>  
+                    </div>
                     @Html.Label("", null, new { @id = "lblApellidoMaterno" })
                 </div>
+                @Html.HiddenFor(model => model.Nombre)
+                @Html.HiddenFor(model => model.ApellidoPatenro)
+                @Html.HiddenFor(model => model.Email)
+                @Html.HiddenFor(model => model.Password)
             </div>
+            <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Actualizar</button>
         }
-            <button type="submit">Actualizar</button>
+
 
     }
 </div>

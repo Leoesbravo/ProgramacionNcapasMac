@@ -51,7 +51,7 @@ namespace BL
             {
                 using (DL.ProgramacionNcapasContext context = new DL.ProgramacionNcapasContext())
                 {
-                    var query = context.Database.ExecuteSqlRaw($"UsuarioUpdate '{usuario.Nombre}', '{usuario.ApellidoPatenro}', '{usuario.Email}', '{usuario.ApellidoMaterno}'  ,@Password", new SqlParameter("@Password", usuario.Password));
+                    var query = context.Database.ExecuteSqlRaw($"UsuarioUpdate {usuario.IdUsuario}, '{usuario.Nombre}', '{usuario.ApellidoPatenro}', '{usuario.Email}', '{usuario.ApellidoMaterno}'  ,@Password", new SqlParameter("@Password", usuario.Password));
 
                     if (query > 0)
                     {
@@ -66,6 +66,33 @@ namespace BL
             catch (Exception ex)
             {
 
+            }
+            return result;
+        }
+        public static ML.Result GetByEmail(string email)
+        {
+            ML.Result result = new Result();
+            try
+            {
+                using (DL.ProgramacionNcapasContext context = new DL.ProgramacionNcapasContext())
+                {
+                    var row = context.Usuarios.FromSqlRaw($"UsuarioGetByEmail '{email}'").AsEnumerable().FirstOrDefault();
+
+                    if (row != null)
+                    {
+
+                        ML.Usuario usuario = new ML.Usuario();
+                        usuario.IdUsuario = row.IdUsuario;
+                        usuario.Password = row.Password;
+
+                        result.Correct = true;
+                        result.Object = usuario;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
             }
             return result;
         }

@@ -126,10 +126,3 @@ namespace PL.Controllers
         }
     }
 }
-
-//Javascript
-//Jquery
-//Selectores de CSS
-//Eventos de HTML
-//expresiones regulares
-//Drop down list - con  Html helper
