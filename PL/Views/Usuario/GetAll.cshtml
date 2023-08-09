@@ -1,0 +1,57 @@
+﻿@model ML.Usuario
+
+<div class="container">
+    <div class="text-center">
+        <h1>Lista de Usuarios</h1>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-auto ms-auto">
+            @Html.ActionLink("Agregar", "Form", "Usuario", htmlAttributes: new { @class = "btn btn-success " })
+        </div>
+    </div>
+    @if (Model.Usuarios == null || Model.Usuarios.Count == 0)
+    {
+        <div class="alert alert-warning" role="alert">
+            No existen registros ):
+        </div>
+    }
+    else
+    {
+        <table class="table table-dark table-hover table-bordered table-responsive">
+            <thead>
+                <tr class="table-secondary">
+                    <td class="text-center">Editar</td>
+                    <td class="text-center">Nombre</td>
+                    <td class="text-center">Email</td>
+                    <td class="text-center">Rol</td>
+                    <td class="text-center">Eliminar</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ML.Usuario producto in Model.Usuarios)
+                {
+                    <tr>
+                        <td class="text-center"><a class="btn btn-warning" href="@Url.Action("Form","Usuario", new {idUsuario = producto.IdUsuario })"><i class="fa-solid fa-square-pen"></i></a></td>
+                        <td>@producto.Nombre @producto.ApellidoPatenro @producto.ApellidoMaterno</td>
+                        <td>@producto.Email</td>
+                        @if (producto.Rol.IdRol == 1)
+                        {
+                            <td style="font-weight: bold; color: #18D071"><i class="fa-solid fa-user-tie" style="color: #18D071 "></i> @producto.Rol.Nombre</td>
+                        }
+                        else
+                        {
+                            <td style="font-weight: bold; color: #75B5F5"><i class="fa-solid fa-user" style="color: #75B5F5"></i> @producto.Rol.Nombre</td>
+                        }
+
+
+                        <td class="text-center"><a class="btn btn-danger" href="@Url.Action("Delete","Usuario", new {idUsuario = producto.IdUsuario })" onclick="return confirm('Seguro que desea eliminar el registro?');"><i class="bi bi-trash2-fill"></i></a></td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+
+    }
+</div>

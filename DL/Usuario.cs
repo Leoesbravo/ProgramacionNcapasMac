@@ -20,4 +20,5 @@ public partial class Usuario
     public int? Rol { get; set; }
 
     public virtual Rol? RolNavigation { get; set; }
+    public string NombreRol { get; set; }
 }

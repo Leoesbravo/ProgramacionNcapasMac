@@ -40,7 +40,7 @@ namespace BL
             }
             catch (Exception ex)
             {
-
+                result.ErrorMessage = ex.Message;
             }
             return result;
         }
@@ -87,6 +87,44 @@ namespace BL
 
                         result.Correct = true;
                         result.Object = usuario;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
+        public static ML.Result GetAll()
+        {
+            ML.Result result = new Result();
+            try
+            {
+                using (DL.ProgramacionNcapasContext context = new DL.ProgramacionNcapasContext())
+                {
+                    var row = context.Usuarios.FromSqlRaw($"UsuarioGetAll").ToList();
+
+                    if (row != null)
+                    {
+                        result.Objects = new List<object>();
+                        foreach(var obj in row)
+                        {
+                            ML.Usuario usuario = new ML.Usuario();
+                            usuario.IdUsuario = obj.IdUsuario;
+                            usuario.Email = obj.Email;
+                            usuario.Password = obj.Password;
+                            usuario.Nombre = obj.Nombre;
+                            usuario.ApellidoMaterno = obj.ApellidoMaterno;
+                            usuario.ApellidoPatenro = obj.ApellidoPaterno;
+                            usuario.Rol = new Rol();
+                            usuario.Rol.IdRol = obj.Rol.Value;
+                            usuario.Rol.Nombre = obj.NombreRol;
+
+                            result.Objects.Add(usuario);
+                        }
+
+                        result.Correct = true;
                     }
                 }
             }

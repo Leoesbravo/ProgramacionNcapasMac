@@ -11,6 +11,7 @@
 
         @using (@Html.BeginForm("Form", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
+            @Html.HiddenFor(model => model.Operacion)
             <div class="row">
                 @Html.TextBoxFor(model => model.IdUsuario, new { @class = "form-control", @style = "display: none" })
                 <div class="col-md-3">
@@ -18,6 +19,14 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="addonNombre"><i class="fa-solid fa-circle-user" style="color: #0056d6;"></i></span>
                         @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @Id = "txtApellidoMaterno" })
+                    </div>
+                    @Html.Label("", null, new { @id = "lblApellidoMaterno" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.ApellidoMaterno)
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="addonNombre"><i class="bi bi-basket-fill" style="color: #0056d6;"></i></span>
+                        @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @Id = "txtApellidoMaterno" })
                     </div>
                     @Html.Label("", null, new { @id = "lblApellidoMaterno" })
                 </div>
@@ -37,14 +46,17 @@
                     </div>
                     @Html.Label("", null, new { @id = "lblApellidoMaterno" })
                 </div>
-                <div class="col-md-3">
-                    @Html.LabelFor(model => model.Password)
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="addonNombre"><i class="fa-solid fa-key" style="color: #0056d6;"></i></span>
-                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @Id = "txtApellidoMaterno" })
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.LabelFor(model => model.Password)
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="addonNombre"><i class="fa-solid fa-key" style="color: #0056d6;"></i></span>
+                            <input type="password" class="form-control" name="password" />
+                        </div>
+                        @Html.Label("", null, new { @id = "lblApellidoMaterno" })
                     </div>
-                    @Html.Label("", null, new { @id = "lblApellidoMaterno" })
                 </div>
+
             </div>
             <button type="submit" class="btn btn-success"><i class="fa-regular fa-floppy-disk"></i> Agregar</button>
         }
@@ -72,6 +84,7 @@
                 @Html.HiddenFor(model => model.ApellidoPatenro)
                 @Html.HiddenFor(model => model.Email)
                 @Html.HiddenFor(model => model.Password)
+                @Html.HiddenFor(model => model.Operacion)
             </div>
             <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Actualizar</button>
         }

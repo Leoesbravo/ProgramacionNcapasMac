@@ -55,31 +55,37 @@ namespace PL.Controllers
             return RedirectToAction("Form", "Usuario", usuario);
         }
         [HttpGet]
-        public ActionResult Form(ML.Usuario usuario, int sobrecarga)
+        public ActionResult Form(ML.Usuario usuario)
         {
             if (usuario.Email == null)
             {
+                usuario.Operacion = "Registrar";
                 return View(usuario);
             }
             else
             {
+                usuario.Operacion = "Completar";
                 return View(usuario);
             }
             
         }
         [HttpPost]
-        public ActionResult Form(ML.Usuario usuario)
+        public ActionResult Form(ML.Usuario usuario, string password)
         {
-            ML.Result result1 = BL.Usuario.GetByEmail(usuario.Email);
-            ML.Usuario usuario1 = (ML.Usuario)result1.Object;
-            usuario.IdUsuario = usuario1.IdUsuario;
-            usuario.Password = usuario1.Password;
-
-            if(usuario.IdUsuario != 0)
+            var bcrypt = new Rfc2898DeriveBytes(password, new byte[0], 10000, HashAlgorithmName.SHA256);
+            var passwordHash = bcrypt.GetBytes(20);
+            usuario.Password = passwordHash;
+            if(usuario.Operacion == "Completar")
             {
+
+                ML.Result result1 = BL.Usuario.GetByEmail(usuario.Email);
+                ML.Usuario usuario1 = (ML.Usuario)result1.Object;
+                usuario.IdUsuario = usuario1.IdUsuario;
+                usuario.Password = usuario1.Password;
                 ML.Result result = BL.Usuario.Update(usuario);
                 ViewBag.Mensaje = "Se ha completado tu informacion";
             }
+
             else
             {
                 ML.Result result = BL.Usuario.Add(usuario);
@@ -87,6 +93,22 @@ namespace PL.Controllers
             }
             return PartialView("Modal");
             
+        }
+        [HttpGet]
+        public ActionResult GetAll()
+        {
+            ML.Result result = BL.Usuario.GetAll();
+            if (result.Correct)
+            {
+                ML.Usuario usuario = new ML.Usuario();
+                usuario.Usuarios = result.Objects;
+
+                return View(usuario);
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
