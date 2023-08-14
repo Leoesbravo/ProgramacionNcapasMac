@@ -21,9 +21,13 @@
   <ItemGroup>
     <None Remove="Views\Producto\" />
     <None Remove="Views\Usuario\" />
+    <None Remove="Views\Venta\" />
+    <None Remove="Views\Proveedor\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Producto\" />
     <Folder Include="Views\Usuario\" />
+    <Folder Include="Views\Venta\" />
+    <Folder Include="Views\Proveedor\" />
   </ItemGroup>
 </Project>

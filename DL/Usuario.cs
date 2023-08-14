@@ -18,6 +18,7 @@ public partial class Usuario
     public byte[]? Password { get; set; }
 
     public int? Rol { get; set; }
+    public bool? Status { get; set; }
 
     public virtual Rol? RolNavigation { get; set; }
     public string NombreRol { get; set; }

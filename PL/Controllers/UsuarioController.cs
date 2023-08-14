@@ -110,5 +110,34 @@ namespace PL.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        public ActionResult NewPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult NewPassword(string email)
+        {
+            ML.Result result = BL.Usuario.GetByEmail(email);
+            if (result.Correct)
+            {
+                //proceso para enviar email lescogido@digis01.com
+                ViewBag.Accion = "Login";
+                ViewBag.Mensaje = "Se ha enviado un correo con instrucciones";
+                return PartialView("Modal");
+            }
+            else
+            {
+                ViewBag.Accion = "Email";
+                ViewBag.Mensaje = "No existe el correo ingresado";
+                return PartialView("Modal");
+            }
+        }
+        [HttpPost]
+        public JsonResult CambiarStatus(int idUsuario, bool status)
+        {
+            ML.Result result = BL.Usuario.CambiarStatus(idUsuario, status); 
+            return Json(result);
+        }
     }
 }

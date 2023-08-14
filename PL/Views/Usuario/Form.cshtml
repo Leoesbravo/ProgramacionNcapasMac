@@ -59,6 +59,7 @@
 
             </div>
             <button type="submit" class="btn btn-success"><i class="fa-regular fa-floppy-disk"></i> Agregar</button>
+            @Html.ActionLink("Regresar", "GetAll", "Usuario", htmlAttributes: new { @class = "btn btn-danger" })
         }
     }
     else

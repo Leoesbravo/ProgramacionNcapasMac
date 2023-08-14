@@ -120,6 +120,7 @@ namespace BL
                             usuario.Rol = new Rol();
                             usuario.Rol.IdRol = obj.Rol.Value;
                             usuario.Rol.Nombre = obj.NombreRol;
+                            usuario.Status = obj.Status;
 
                             result.Objects.Add(usuario);
                         }
@@ -130,6 +131,32 @@ namespace BL
             }
             catch (Exception ex)
             {
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
+        }
+        public static ML.Result CambiarStatus(int idUsuario, bool status)
+        {
+            ML.Result result = new Result();
+            try
+            {
+                using (DL.ProgramacionNcapasContext context = new DL.ProgramacionNcapasContext())
+                {
+                    var query = context.Database.ExecuteSqlRaw($"UsuarioChangeStatus {idUsuario}, {status}");
+
+                    if (query > 0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
                 result.ErrorMessage = ex.Message;
             }
             return result;

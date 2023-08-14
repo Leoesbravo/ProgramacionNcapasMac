@@ -34,7 +34,7 @@
             {
                 <h2 class="form_title title">Iniciar Sesión</h2>
                 <input class="form__input" type="text" placeholder="Email" name="email">
-                <input class="form__input" type="password" name="password" placeholder="Password"><a class="form__link">Olvide mi contraseña</a>
+                <input class="form__input" type="password" name="password" placeholder="Password"><a class="form__link" @Html.ActionLink("Olvide mi contraseña","NewPassword" ,"Usuario")></a>
                 <button class=" button" type="submit">Entrar</button>
             }
         </div>
