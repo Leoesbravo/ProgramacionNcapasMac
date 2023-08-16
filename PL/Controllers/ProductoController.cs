@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -11,20 +12,38 @@ namespace PL.Controllers
 {
     public class ProductoController : Controller
     {
-        [HttpGet]
+
         public ActionResult GetAll()
         {
+            ML.Result resultProductos = new ML.Result();
+            resultProductos.Objects = new List<Object>();
             ML.Producto producto = new ML.Producto();
-            producto.Departamento = new ML.Departamento();
-            producto.Departamento.Area = new ML.Area();
-            ML.Result result = BL.Producto.GetAllEF(producto);
 
-            producto.Productos = result.Objects;
-            result = BL.Area.GetAllEF();
-            producto.Departamento.Area.Areas = result.Objects;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:5069/api/");
 
+                var responseTask = client.GetAsync("Producto/GetAll");
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<ML.Result>();
+                    readTask.Wait();
+
+                    foreach (var resultItem in readTask.Result.Objects)
+                    {
+                        producto = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Producto>(resultItem.ToString());
+                        resultProductos.Objects.Add(producto);
+                    }
+                }
+                producto.Productos = resultProductos.Objects;
+            }
             return View(producto);
         }
+
         [HttpPost]
         public ActionResult GetAll(ML.Producto producto)
         {

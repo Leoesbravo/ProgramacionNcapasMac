@@ -49,6 +49,21 @@ namespace SL.Controllers
             }
 
         }
+        [HttpPost]
+        [Route("Update/{idProducto}")]
+        public IActionResult Update(int idProducto,[FromBody]ML.Producto producto)
+        {
+            producto.IdProducto = idProducto;
+            ML.Result result = BL.Producto.Update(producto);
+            if (result.Correct)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound(result.ErrorMessage);
+            }
+        }
     }
 }
 

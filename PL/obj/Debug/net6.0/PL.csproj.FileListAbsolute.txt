@@ -10,6 +10,7 @@
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/Azure.Identity.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/EntityFramework.SqlServer.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/EntityFramework.dll
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/System.Net.Http.Formatting.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/Microsoft.Bcl.AsyncInterfaces.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/Microsoft.Data.SqlClient.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.dll
@@ -35,6 +36,8 @@
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/Microsoft.IdentityModel.Tokens.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/Microsoft.SqlServer.Server.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/Microsoft.Win32.SystemEvents.dll
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/Newtonsoft.Json.Bson.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/System.Data.SQLite.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/System.CodeDom.dll
 /Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/bin/Debug/net6.0/System.Configuration.ConfigurationManager.dll
