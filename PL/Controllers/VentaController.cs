@@ -23,33 +23,44 @@ namespace PL.Controllers
         }
         public ActionResult AddCarrito(int idProducto)
         {
-            if(HttpContext.Session.GetString("Carrito") == null)
+            ML.Venta carrito = new ML.Venta();
+            carrito.Carrito = new List<object>();
+            ML.Result result = BL.Producto.GetByIdEF(idProducto);
+            if (HttpContext.Session.GetString("Carrito") == null)
             {
-                ML.Venta carrito = new ML.Venta();
-                carrito.Carrito = new List<object>();
-                ML.Result result = BL.Producto.GetByIdEF(idProducto);
+
                 if (result.Correct)
                 { 
                     ML.Producto producto = (ML.Producto)result.Object;
                     carrito.Carrito.Add(producto);
                     //serializar carrito
-                    HttpContext.Session.SetString("Carrito", Newtonsoft.Json.JsonConvert.SerializeObject(carrito.ToString()));
+                    HttpContext.Session.SetString("Carrito", Newtonsoft.Json.JsonConvert.SerializeObject(carrito.Carrito.ToString()));
                 }
             
             }
             else
-            {
-                //deserialiar la sesion
-               ML.Venta venta = HttpContext.Session.GetString("Carrito");
-                //agregar el nuevo producto, tienen modificar el total
+            { 
+            
+                ML.Producto producto = (ML.Producto)result.Object;
+                GetCarrito(carrito);
+                var obj = 0;
+
             }
 
             return RedirectToAction("Catalogo");
         }
-        public ActionResult GetCarrito()
+        public ML.Venta GetCarrito(ML.Venta carrito)
         {
+            var ventaSession = Newtonsoft.Json.JsonConvert.DeserializeObject<List<object>>(HttpContext.Session.GetString("Carrito"));
 
+            foreach (var obj in ventaSession)
+            {
+                ML.Producto objMateria = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Producto>(obj.ToString());
+                carrito.Carrito.Add(objMateria);
+            }
+            return carrito;
         }
+
     }
 }
 
