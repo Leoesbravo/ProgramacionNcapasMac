@@ -27,14 +27,14 @@ namespace PL.Controllers
             carrito.Carrito = new List<object>();
             ML.Result result = BL.Producto.GetByIdEF(idProducto);
             if (HttpContext.Session.GetString("Carrito") == null)
-            {
+                {
 
                 if (result.Correct)
                 { 
                     ML.Producto producto = (ML.Producto)result.Object;
                     carrito.Carrito.Add(producto);
                     //serializar carrito
-                    HttpContext.Session.SetString("Carrito", Newtonsoft.Json.JsonConvert.SerializeObject(carrito.Carrito.ToString()));
+                    HttpContext.Session.SetString("Carrito", Newtonsoft.Json.JsonConvert.SerializeObject(carrito.Carrito));
                 }
             
             }
@@ -42,13 +42,14 @@ namespace PL.Controllers
             { 
             
                 ML.Producto producto = (ML.Producto)result.Object;
-                GetCarrito(carrito);
-                var obj = 0;
+                GetCarrito(carrito); //ya recupere el carrito
+                carrito.Carrito.Add(producto);
+                HttpContext.Session.SetString("Carrito", Newtonsoft.Json.JsonConvert.SerializeObject(carrito.Carrito));
 
             }
 
             return RedirectToAction("Catalogo");
-        }
+        } 
         public ML.Venta GetCarrito(ML.Venta carrito)
         {
             var ventaSession = Newtonsoft.Json.JsonConvert.DeserializeObject<List<object>>(HttpContext.Session.GetString("Carrito"));
@@ -60,7 +61,21 @@ namespace PL.Controllers
             }
             return carrito;
         }
-
+        public ActionResult Carrito()
+        {
+            ML.Venta carrito = new ML.Venta();
+            carrito.Carrito = new List<object>();
+            if(HttpContext.Session.GetString("Carrito") == null)
+            {
+                return View(carrito);
+            }
+            else
+            {
+                GetCarrito(carrito);
+                return View(carrito);
+            }
+  
+        }
     }
 }
 

@@ -1,0 +1,49 @@
+﻿@model ML.Venta
+@if (Model.Carrito == null || Model.Carrito.Count == 0)
+{
+    <div class="alert alert-warning" role="alert">
+        Aun no tienes productos agregados ):
+    </div>
+}
+else
+{
+    <table class="table table-dark table-hover table-bordered table-responsive">
+        <thead>
+            <tr class="table-secondary">
+                <td class="text-center">Nombre</td>
+                <td class="text-center">Precio</td>
+                <td class="text-center">Departamento</td>
+                <td class="text-center">Imagen</td>
+                <td class="text-center">Agregar</td>
+                <td class="text-center">cantidad</td>
+                <td class="text-center">Quitar</td>
+                <td class="text-center">Eliminar</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ML.Producto producto in Model.Carrito)
+            {
+                <tr>
+                    <td>@producto.Nombre</td>
+                    <td>$ @producto.Precio</td>
+                    <td>@producto.Departamento.IdDepartamento</td>
+                    @if (producto.Imagen != null)
+                    {
+                        <td class="text-center"><img id="Img" src="data:image/*;base64,@producto.Imagen" style="width:50px ; height:50px" /></td>
+                    }
+                    else
+                    {
+                        <td class="text-center"><img id="Img" src="https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg" style="width:50px ; height:50px" /></td>
+                    }
+
+                    <td><button class="btn btn-success"><i class="fa-solid fa-square-plus"></i></button> </td>
+                    <td><button class="btn btn-success">?</button> </td>
+                    <td><button class="btn btn-warning"><i class="fa-solid fa-square-minus"></i></button> </td>
+                    <td><button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button> </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+}
