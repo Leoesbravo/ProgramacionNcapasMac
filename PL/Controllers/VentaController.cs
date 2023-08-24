@@ -21,8 +21,9 @@ namespace PL.Controllers
             producto.Productos = result.Objects;
             return View(producto);
         }
-        public ActionResult AddCarrito(int idProducto)
+        public ActionResult AddCarrito(int idProducto)  
         {
+            bool existe = false;
             ML.Venta carrito = new ML.Venta();
             carrito.Carrito = new List<object>();
             ML.Result result = BL.Producto.GetByIdEF(idProducto);
@@ -32,6 +33,7 @@ namespace PL.Controllers
                 if (result.Correct)
                 { 
                     ML.Producto producto = (ML.Producto)result.Object;
+                    producto.Cantidad = 1;
                     carrito.Carrito.Add(producto);
                     //serializar carrito
                     HttpContext.Session.SetString("Carrito", Newtonsoft.Json.JsonConvert.SerializeObject(carrito.Carrito));
@@ -39,12 +41,33 @@ namespace PL.Controllers
             
             }
             else
-            { 
-            
+            {
+                
                 ML.Producto producto = (ML.Producto)result.Object;
                 GetCarrito(carrito); //ya recupere el carrito
-                carrito.Carrito.Add(producto);
-                HttpContext.Session.SetString("Carrito", Newtonsoft.Json.JsonConvert.SerializeObject(carrito.Carrito));
+                foreach(ML.Producto producto1 in carrito.Carrito)
+                {
+                    if(producto.IdProducto == producto1.IdProducto)
+                    {
+                        producto1.Cantidad += 1;
+                        existe = true;
+                        break;
+                    }
+                    else
+                    {
+                        existe = false;
+                    }
+                }
+                if (existe == true)
+                {
+                    HttpContext.Session.SetString("Carrito", Newtonsoft.Json.JsonConvert.SerializeObject(carrito.Carrito));
+                }
+                else
+                {
+                    producto.Cantidad = 1;
+                    carrito.Carrito.Add(producto);
+                    HttpContext.Session.SetString("Carrito", Newtonsoft.Json.JsonConvert.SerializeObject(carrito.Carrito));
+                }
 
             }
 

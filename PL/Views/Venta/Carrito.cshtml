@@ -1,49 +1,116 @@
 ﻿@model ML.Venta
-@if (Model.Carrito == null || Model.Carrito.Count == 0)
-{
-    <div class="alert alert-warning" role="alert">
-        Aun no tienes productos agregados ):
+<div class="container">
+    <div class="text-center">
+        <h1>Tu Carrito</h1>
     </div>
-}
-else
-{
-    <table class="table table-dark table-hover table-bordered table-responsive">
-        <thead>
-            <tr class="table-secondary">
-                <td class="text-center">Nombre</td>
-                <td class="text-center">Precio</td>
-                <td class="text-center">Departamento</td>
-                <td class="text-center">Imagen</td>
-                <td class="text-center">Agregar</td>
-                <td class="text-center">cantidad</td>
-                <td class="text-center">Quitar</td>
-                <td class="text-center">Eliminar</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (ML.Producto producto in Model.Carrito)
-            {
-                <tr>
-                    <td>@producto.Nombre</td>
-                    <td>$ @producto.Precio</td>
-                    <td>@producto.Departamento.IdDepartamento</td>
-                    @if (producto.Imagen != null)
-                    {
-                        <td class="text-center"><img id="Img" src="data:image/*;base64,@producto.Imagen" style="width:50px ; height:50px" /></td>
-                    }
-                    else
-                    {
-                        <td class="text-center"><img id="Img" src="https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg" style="width:50px ; height:50px" /></td>
-                    }
-
-                    <td><button class="btn btn-success"><i class="fa-solid fa-square-plus"></i></button> </td>
-                    <td><button class="btn btn-success">?</button> </td>
-                    <td><button class="btn btn-warning"><i class="fa-solid fa-square-minus"></i></button> </td>
-                    <td><button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button> </td>
+    <hr />
+    @if (Model.Carrito == null || Model.Carrito.Count == 0)
+    {
+        <div class="alert alert-warning" role="alert">
+            Aun no tienes productos agregados ):
+        </div>
+    }
+    else
+    {
+        <table class="table table-dark table-hover table-bordered table-responsive">
+            <thead>
+                <tr class="table-secondary">
+                    <td class="text-center">Nombre</td>
+                    <td class="text-center">Precio</td>
+                    <td class="text-center">Imagen</td>
+                    <td class="text-center">Agregar</td>
+                    <td class="text-center">cantidad</td>
+                    <td class="text-center">Quitar</td>
+                    <td class="text-center">Eliminar</td>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (ML.Producto producto in Model.Carrito)
+                {
+                    <tr>
+                        <td>@producto.Nombre</td>
+                        <td>$ @producto.Precio</td>
+                        @if (producto.Imagen != null)
+                        {
+                            <td class="text-center"><img id="Img" src="data:image/*;base64,@producto.Imagen" style="width:50px ; height:50px" /></td>
+                        }
+                        else
+                        {
+                            <td class="text-center"><img id="Img" src="https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg" style="width:50px ; height:50px" /></td>
+                        }
 
+                        <td><button class="btn btn-success"><i class="fa-solid fa-square-plus"></i></button> </td>
+                        <td>@producto.Cantidad </td>
+                        <td><button class="btn btn-warning"><i class="fa-solid fa-square-minus"></i></button> </td>
+                        <td><button class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button> </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        <label>Total: $ @Model.Total</label>
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-success" onclick="AbrirModal()">Comprar!</a>
+                <a href="" class="btn btn-success">Limpiar</a>
+                <a href="" class="btn btn-success">regresar</a>
+            </div>
+        </div>
+
+    }
+
+    <div class="modal fade " id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            @using (Html.BeginForm("Index", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-content">
+                    <div class="modal-header alert-secondary">
+                        <h5 class="modal-title" id="exampleModalLabel">Formulario de Productos</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                @Html.LabelFor(model => model.Cantidad)
+                                <div class="input-group ">
+                                    <span class="input-group-text" id="addonStock"><i class="fa-solid fa-cubes-stacked"></i></span>
+                                    @Html.TextBoxFor(model => model.Cantidad, new { @class = "form-control", @id = "txtStock", @autocomplete = "off", @onkeypress = "SoloNumeros(event, 'txtStock', 'lblStock', 'addonStock')" })
+                                    @Html.ValidationMessageFor(model => model.Cantidad)
+                                </div>
+                                @Html.Label("", null, new { @id = "lblStock" })
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-7">
+
+                                @Html.LabelFor(model => model.SubTotal)
+                                <div class="input-group ">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-book-open"></i></span>
+                                    @Html.TextAreaFor(model => model.SubTotal, new { @class = "form-control", @id = "txtFechaNacimiento", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.SubTotal)
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                        <button id="btnGuardar" type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk" style="color: #000000;"></i> Guardar</button>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
+        </div>
+    </div>
 
+</div>
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript">
+
+    function AbrirModal(){
+         $('#Modal').modal('show');
+    }
+
+    </script>
 }
