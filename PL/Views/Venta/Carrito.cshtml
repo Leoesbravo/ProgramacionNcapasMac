@@ -4,6 +4,7 @@
         <h1>Tu Carrito</h1>
     </div>
     <hr />
+
     @if (Model.Carrito == null || Model.Carrito.Count == 0)
     {
         <div class="alert alert-warning" role="alert">
@@ -12,6 +13,12 @@
     }
     else
     {
+        <div class="btn-group d-flex" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" onclick="AbrirModal()" class="btn btn-dark"><i class="fa-solid fa-money-bill"></i> Comprar</button>
+            <button type="button" class="btn btn-dark"><i class="fa-solid fa-broom"></i> Limpiar</button>
+            <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-door-open"></i> Regresar</button>
+        </div>
+        <br />
         <table class="table table-dark table-hover table-bordered table-responsive">
             <thead>
                 <tr class="table-secondary">
@@ -49,14 +56,8 @@
             </tbody>
         </table>
         <label>Total: $ @Model.Total</label>
-        <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-success" onclick="AbrirModal()">Comprar!</a>
-                <a href="" class="btn btn-success">Limpiar</a>
-                <a href="" class="btn btn-success">regresar</a>
-            </div>
-        </div>
-
+        <input type="text" id="txtLatitud" hidden/>
+        <input type="text" id="txtLongitud" hidden/>
     }
 
     <div class="modal fade " id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -65,38 +66,57 @@
             {
                 <div class="modal-content">
                     <div class="modal-header alert-secondary">
-                        <h5 class="modal-title" id="exampleModalLabel">Formulario de Productos</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Termina tu compra</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                @Html.LabelFor(model => model.Cantidad)
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                                @Html.Label("Numero de Tarjeta")
                                 <div class="input-group ">
-                                    <span class="input-group-text" id="addonStock"><i class="fa-solid fa-cubes-stacked"></i></span>
-                                    @Html.TextBoxFor(model => model.Cantidad, new { @class = "form-control", @id = "txtStock", @autocomplete = "off", @onkeypress = "SoloNumeros(event, 'txtStock', 'lblStock', 'addonStock')" })
-                                    @Html.ValidationMessageFor(model => model.Cantidad)
+                                    <span class="input-group-text" id="addonStock"><i class="fa-brands fa-cc-visa"></i></span>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                @Html.Label("", null, new { @id = "lblStock" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.Label("CVV")
+                                <div class="input-group ">
+                                    <span class="input-group-text" id="addonStock">CVV</span>
+                                    <input type="text" class="form-control" />
+                                </div>
+                                @Html.Label("", null, new { @id = "lblStock" })
+                            </div>
+                            <div class="col-md-3">
+                                @Html.Label("Vencimiento")
+                                <div class="input-group ">
+                                    <span class="input-group-text" id="addonStock"><i class="fa-regular fa-calendar"></i></span>
+                                    <input type="month" class="form-control" />
                                 </div>
                                 @Html.Label("", null, new { @id = "lblStock" })
                             </div>
                         </div>
-                        <br />
+                        <hr />
                         <div class="row">
-                            <div class="col-md-7">
+                            <h2 class="text-center">Tu Direccion</h2>
+                            <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-                                @Html.LabelFor(model => model.SubTotal)
-                                <div class="input-group ">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-book-open"></i></span>
-                                    @Html.TextAreaFor(model => model.SubTotal, new { @class = "form-control", @id = "txtFechaNacimiento", @autocomplete = "off" })
-                                    @Html.ValidationMessageFor(model => model.SubTotal)
-                                </div>
+                                <div id="map"></div>
+
+                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSKBDdPPlfca_zTwyxKiicRQn1qfgRjLw&callback=initMap&libraries=&v=weekly&sensor=false" defer></script>
+
+                        </div>
+                        <label>Direccion</label>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input id="txtDireccion" type="text" disabled/>
                             </div>
                         </div>
                         <br />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                        <button id="btnGuardar" type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk" style="color: #000000;"></i> Guardar</button>
+                        <a href="@Url.Action("GenerarPDF" id="btnGuardar" type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk" style="color: #000000;"></i> Pedir</a>
                     </div>
                 </div>
             }
@@ -104,13 +124,72 @@
     </div>
 
 </div>
+<style>
+    #map {
+        height: 300px;
+        width: 65%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
 @section Scripts{
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript">function AbrirModal() {
+            $('#Modal').modal('show');
+        }
 
-    function AbrirModal(){
-         $('#Modal').modal('show');
-    }
+        function initMap() {
 
-    </script>
+
+            myLatlng = { lat: 19.5530408, lng: -99.2748958 };
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 14,
+                center: myLatlng,
+            });
+            // Create the initial InfoWindow.
+            let infoWindow = new google.maps.InfoWindow({
+                content: "Presiona la locación",
+                position: myLatlng,
+            });
+
+            infoWindow.open(map);
+            // Configure the click listener.
+
+            //obtener direccion
+            google.maps.event.addListener(map, 'click', function (event) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({
+                    'latLng': event.latLng
+                }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                            $("#txtDireccion").val(results[0].formatted_address);
+                        }
+                    }
+                });
+            });
+
+
+            //obtener cordenadas
+            map.addListener("click", (mapsMouseEvent) => {
+                // Close the current InfoWindow.
+                infoWindow.close();
+                // Create a new InfoWindow.
+                infoWindow = new google.maps.InfoWindow({
+                    position: mapsMouseEvent.latLng,
+                });
+                infoWindow.setContent(
+                    JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+                );
+
+                infoWindow.open(map);
+                var Latitud = mapsMouseEvent.latLng.lat();
+                var Longitud = mapsMouseEvent.latLng.lng();
+                $("#txtLatitud").val(Latitud);
+                $("#txtLongitud").val(Longitud);
+            });
+        }
+
+        window.initMap = initMap;</script>
 }

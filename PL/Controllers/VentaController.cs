@@ -99,6 +99,12 @@ namespace PL.Controllers
             }
   
         }
+        public ActionResult GenerarPDF(string direccion, string tarjeta)
+        {
+            ML.Venta venta = new ML.Venta();
+            GetCarrito(venta);
+            return File();
+        }
     }
 }
 
