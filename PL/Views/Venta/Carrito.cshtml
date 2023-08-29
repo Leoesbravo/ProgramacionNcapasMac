@@ -56,10 +56,10 @@
             </tbody>
         </table>
         <label>Total: $ @Model.Total</label>
-        <input type="text" id="txtLatitud" hidden/>
-        <input type="text" id="txtLongitud" hidden/>
+        <input type="text" id="txtLatitud" hidden />
+        <input type="text" id="txtLongitud" hidden />
     }
-
+    </div>
     <div class="modal fade " id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             @using (Html.BeginForm("Index", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -96,32 +96,53 @@
                                 @Html.Label("", null, new { @id = "lblStock" })
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Direccion</label>
+                                <input class="form-control col-md-12" id="txtDireccion" type="text" disabled />
+                            </div>
+                        </div>
                         <hr />
                         <div class="row">
-                            <h2 class="text-center">Tu Direccion</h2>
+                            <h2 class="text-center">Ingresa Tu Direccion</h2>
                             <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
-                                <div id="map"></div>
+                            <div id="map"></div>
 
                             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSKBDdPPlfca_zTwyxKiicRQn1qfgRjLw&callback=initMap&libraries=&v=weekly&sensor=false" defer></script>
 
                         </div>
-                        <label>Direccion</label>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <input id="txtDireccion" type="text" disabled/>
-                            </div>
-                        </div>
+
                         <br />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                        <a href="@Url.Action("GenerarPDF" id="btnGuardar" type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk" style="color: #000000;"></i> Pedir</a>
+                        <a onclick="ModalCompra()" id="btnGuardar" class="btn btn-dark"><i class="fa-solid fa-truck"></i> Pedir</a>
                     </div>
                 </div>
             }
         </div>
     </div>
+    <div class="modal fade " id="ModalCompra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header alert-success">
+                    <h5 class="modal-title" id="exampleModalLabel">Completado! <i class="fa-solid fa-check"></i></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row text-center">
+                        <h2 class="text-center">Tu pedido esta en proceso!</h2>
+                        <img src="https://cdn.pixabay.com/animation/2022/11/10/13/26/13-26-03-556_512.gif" width="50" height="520"/>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                    <a href="@Url.Action("GenerarPDF")" id="btnGuardar" class="btn btn-dark"><i class="fa-solid fa-file-pdf"></i> Resumen</a>
+                </div>
+            </div>
+        </div>
 
 </div>
 <style>
@@ -137,7 +158,10 @@
     <script type="text/javascript">function AbrirModal() {
             $('#Modal').modal('show');
         }
-
+        function ModalCompra() {
+            $('#Modal').modal('hide');
+            $('#ModalCompra').modal('show');
+        }
         function initMap() {
 
 

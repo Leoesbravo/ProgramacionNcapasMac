@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rtsoWlmHJQPo6VwysWolD0TCPJIWpdkqqMCVZWXo0Xy6j3//l3RB7svC6Balex0putUfh2YZMAW5gTi4+Kev8A==",
+  "dgSpecHash": "2Iuz5K4ZHy3PCSek7f/AISYXdiHeEcf5Q7052uuNA3q1RnKicEzqGybD/sMFi0qHAQM83QreXiEk4k5LrxW5XQ==",
   "success": true,
   "projectFilePath": "/Users/macbookmba12/Projects/ProgramacionNCapasMac/PL/PL.csproj",
   "expectedPackageFiles": [
@@ -8,8 +8,10 @@
     "/Users/macbookmba12/.nuget/packages/azure.identity/1.6.0/azure.identity.1.6.0.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/entityframework/6.4.4/entityframework.6.4.4.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/itext/8.0.1/itext.8.0.1.nupkg.sha512",
+    "/Users/macbookmba12/.nuget/packages/itext.bouncy-castle-adapter/8.0.1/itext.bouncy-castle-adapter.8.0.1.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/itext.commons/8.0.1/itext.commons.8.0.1.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/itext7/8.0.1/itext7.8.0.1.nupkg.sha512",
+    "/Users/macbookmba12/.nuget/packages/itext7.bouncy-castle-adapter/8.0.1/itext7.bouncy-castle-adapter.8.0.1.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/microsoft.aspnet.webapi.client/5.2.9/microsoft.aspnet.webapi.client.5.2.9.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
@@ -48,6 +50,7 @@
     "/Users/macbookmba12/.nuget/packages/netstandard.library/1.6.1/netstandard.library.1.6.1.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/newtonsoft.json.bson/1.0.1/newtonsoft.json.bson.1.0.1.nupkg.sha512",
+    "/Users/macbookmba12/.nuget/packages/portable.bouncycastle/1.8.10/portable.bouncycastle.1.8.10.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.2/runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.2/runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "/Users/macbookmba12/.nuget/packages/runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl/4.3.2/runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
