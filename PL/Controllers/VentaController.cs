@@ -154,6 +154,7 @@ namespace PL.Controllers
 
             // Eliminar el archivo temporal
             System.IO.File.Delete(rutaTempPDF);
+            HttpContext.Session.Remove("Carrito");
 
             // Descargar el archivo PDF
             return new FileStreamResult(new MemoryStream(fileBytes), "application/pdf")

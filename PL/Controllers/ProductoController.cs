@@ -41,6 +41,10 @@ namespace PL.Controllers
                 }
                 producto.Productos = resultProductos.Objects;
             }
+            ML.Result arearesult = BL.Area.GetAllEF();
+            producto.Departamento.Area = new ML.Area();
+            producto.Departamento.Area.Areas = new List<object>();
+            producto.Departamento.Area.Areas = arearesult.Objects;
             return View(producto);
         }
 

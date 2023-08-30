@@ -35,9 +35,20 @@
                                 <li><a class="dropdown-item" asp-area="" asp-controller="Proveedor" asp-action="GetAll"><i class="fa-solid fa-handshake-simple" style="color: #143e6b;"></i>Proveedores</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-secondary" asp-area="" asp-controller="Venta" asp-action="Carrito"><i class="bi bi-bag-heart-fill " style="color: #4C9BFF;"></i>()</a>
-                        </li>
+                        @using Microsoft.AspNetCore.Http
+                        @if (Context.Session.GetString("Carrito") == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" asp-area="" asp-controller="Venta" asp-action="Carrito"><i class="bi bi-bag-heart-fill " style="color: #4C9BFF;"></i>()</a>
+                            </li>
+                        }
+                        else
+                        {
+                            var ventaSession = Newtonsoft.Json.JsonConvert.DeserializeObject<List<object>>(Context.Session.GetString("Carrito"));
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" style="color: green;" asp-area="" asp-controller="Venta" asp-action="Carrito"><i class="bi bi-bag-heart-fill " style="color: #4C9BFF;"></i>(@ventaSession.Count)</a>
+                            </li>
+                        }
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
