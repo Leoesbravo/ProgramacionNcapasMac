@@ -29,6 +29,7 @@ namespace PL.Controllers
                 ML.Usuario usuario = (ML.Usuario)result.Object;
                 if(usuario.Password.SequenceEqual(passwordHash))
                 {
+                    HttpContext.Session.SetString("Rol", usuario.Rol.Nombre);
                     return RedirectToAction("Index", "Home");
                 }       
                 else

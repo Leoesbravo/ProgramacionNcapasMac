@@ -20,41 +20,77 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-secondary" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-secondary" asp-area="" asp-controller="Venta" asp-action="Catalogo">Catalogo</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Producto" asp-action="GetAll"><i class="fa-solid fa-drumstick-bite" style="color: #143e6b;"></i> Productos</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="GetAll"><i class="fa-solid fa-users" style="color: #143e6b;"></i> Usuarios</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-controller="Proveedor" asp-action="GetAll"><i class="fa-solid fa-handshake-simple" style="color: #143e6b;"></i>Proveedores</a></li>
-                            </ul>
-                        </li>
-                        @using Microsoft.AspNetCore.Http
-                        @if (Context.Session.GetString("Carrito") == null)
-                        {
+                    @using Microsoft.AspNetCore.Http;
+                    @{
+                        var rol = Context.Session.GetString("Rol");
+                    }
+                    @if (rol == "Administrador")
+                    {
+                        <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-secondary" asp-area="" asp-controller="Venta" asp-action="Carrito"><i class="bi bi-bag-heart-fill " style="color: #4C9BFF;"></i>()</a>
+                                <a class="nav-link text-secondary" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-                        }
-                        else
-                        {
-                            var ventaSession = Newtonsoft.Json.JsonConvert.DeserializeObject<List<object>>(Context.Session.GetString("Carrito"));
                             <li class="nav-item">
-                                <a class="nav-link text-secondary" style="color: green;" asp-area="" asp-controller="Venta" asp-action="Carrito"><i class="bi bi-bag-heart-fill " style="color: #4C9BFF;"></i>(@ventaSession.Count)</a>
+                                <a class="nav-link text-secondary" asp-area="" asp-controller="Venta" asp-action="Catalogo">Catalogo</a>
                             </li>
-                        }
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-secondary" asp-area="" asp-controller="Usuario" asp-action="Login"><i class="fa-solid fa-door-open" style="color: #FF4C4C;"></i> Salir</a>
-                        </li>
-                    </ul>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Producto" asp-action="GetAll"><i class="fa-solid fa-drumstick-bite" style="color: #143e6b;"></i> Productos</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="GetAll"><i class="fa-solid fa-users" style="color: #143e6b;"></i> Usuarios</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Proveedor" asp-action="GetAll"><i class="fa-solid fa-handshake-simple" style="color: #143e6b;"></i>Proveedores</a></li>
+                                </ul>
+                            </li>
+
+                            @if (Context.Session.GetString("Carrito") == null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-secondary" asp-area="" asp-controller="Venta" asp-action="Carrito"><i class="bi bi-bag-heart-fill " style="color: #4C9BFF;"></i>()</a>
+                                </li>
+                            }
+                            else
+                            {
+                                var ventaSession = Newtonsoft.Json.JsonConvert.DeserializeObject<List<object>>(Context.Session.GetString("Carrito"));
+                                <li class="nav-item">
+                                    <a class="nav-link text-secondary" style="color: green;" asp-area="" asp-controller="Venta" asp-action="Carrito"><i class="bi bi-bag-heart-fill " style="color: #4C9BFF;"></i>(@ventaSession.Count)</a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" asp-area="" asp-controller="Usuario" asp-action="Login"><i class="fa-solid fa-door-open" style="color: #FF4C4C;"></i> Salir</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" asp-area="" asp-controller="Venta" asp-action="Catalogo">Catalogo</a>
+                            </li>
+                            @if (Context.Session.GetString("Carrito") == null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-secondary" asp-area="" asp-controller="Venta" asp-action="Carrito"><i class="bi bi-bag-heart-fill " style="color: #4C9BFF;"></i>()</a>
+                                </li>
+                            }
+                            else
+                            {
+                                var ventaSession = Newtonsoft.Json.JsonConvert.DeserializeObject<List<object>>(Context.Session.GetString("Carrito"));
+                                <li class="nav-item">
+                                    <a class="nav-link text-secondary" style="color: green;" asp-area="" asp-controller="Venta" asp-action="Carrito"><i class="bi bi-bag-heart-fill " style="color: #4C9BFF;"></i>(@ventaSession.Count)</a>
+                                </li>
+                            }
+                        </ul>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-secondary" asp-area="" asp-controller="Usuario" asp-action="Login"><i class="fa-solid fa-door-open" style="color: #FF4C4C;"></i> Salir</a>
+                            </li>
+                        </ul>
+                    }
                 </div>
             </div>
         </nav>

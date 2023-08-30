@@ -84,6 +84,8 @@ namespace BL
                         ML.Usuario usuario = new ML.Usuario();
                         usuario.IdUsuario = row.IdUsuario;
                         usuario.Password = row.Password;
+                        usuario.Rol = new Rol();
+                        usuario.Rol.Nombre = row.NombreRol;
 
                         result.Correct = true;
                         result.Object = usuario;
